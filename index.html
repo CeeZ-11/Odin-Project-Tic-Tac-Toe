@@ -7,5 +7,53 @@
     <link rel="stylesheet" href="styles.css" />
     <script src="script.js" defer></script>
   </head>
-  <body></body>
+  <body>
+    <dialog>
+      <form action id="add-players">
+        <h3>Create Player Names</h3>
+        <div class="form-control">
+          <label for="player-one">Player One Name</label>
+          <input type="text" id="player-one" name="player-one" required />
+        </div>
+        <div class="form-control">
+          <label for="player-two">Player Two Name</label>
+          <input type="text" id="player-two" name="player-two" required />
+        </div>
+        <button type="submit" id="start-game">Start Game</button>
+      </form>
+    </dialog>
+
+    <div id="container">
+      <div id="header">
+        <h1>Tic Tac Toe</h1>
+        <div id="round">Round 1</div>
+        <div id="message">Player Name Turn</div>
+      </div>
+
+      <div id="game-board">
+        <div id="board"></div>
+      </div>
+
+      <div id="game-info">
+        <div id="scoreboard">
+          <p>Player 1: <span id="player1-score">0</span></p>
+          <p>Player 2: <span id="player2-score">0</span></p>
+        </div>
+        <div id="player-select">
+          <div>
+            <label for="player1">Player 1</label>
+            <input type="radio" id="player1" name="player" value="X" checked />
+          </div>
+          <div>
+            <label for="player2">Player 2</label>
+            <input type="radio" id="player2" name="player" value="O" />
+          </div>
+        </div>
+        <div id="buttons">
+          <div id="reset-round"><button>Reset Round</button></div>
+          <div id="reset-game"><button>Reset Game</button></div>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>
