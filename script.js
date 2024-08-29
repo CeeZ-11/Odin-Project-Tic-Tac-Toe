@@ -1,12 +1,15 @@
-const showModal = () => {
-  dialog.showModal();
-};
+var game = (function () {
+  const dialog = document.querySelector("dialog");
+  const gameInitiate = document.getElementById("startGame"); // Button with id "Submit"
+  const playerOne = document.getElementById("player1");
+  const playerTwo = document.getElementById("player2");
 
-const dialog = document.querySelector("dialog");
-const gameStart = document.getElementById("start-game"); // Button with id "Submit"
+  const closeModal = () => {
+    dialog.close();
+  };
 
-showModal();
-gameStart.addEventListener("click", () => {
-  dialog.close();
-  dialog.classList.remove("inactive");
-});
+  gameInitiate.addEventListener("click", () => {
+    dialog.classList.add("inactive");
+    closeModal();
+  });
+})();
