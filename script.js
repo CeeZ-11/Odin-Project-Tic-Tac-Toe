@@ -1,5 +1,8 @@
 var gameBoard = (function () {
-  const player = {};
+  const player = {
+    one: {},
+    two: {},
+  };
 
   const dialog = document.querySelector("dialog");
   const gameInitiate = document.getElementById("startGame");
@@ -18,11 +21,14 @@ var gameBoard = (function () {
   const addPlayer = () => {
     const playerOne = document.getElementById("player-one");
     const playerTwo = document.getElementById("player-two");
-    player.name = playerOne.value;
-    player.symbol = "X";
+    player.one.name = playerOne.value;
+    player.one.symbol = "X";
+    player.two.name = playerTwo.value;
+    player.two.symbol = "Y";
     console.log(playerOne.value);
     console.log(playerTwo.value);
-    console.log(player.name);
+    console.log(player.one);
+    console.log(player.two);
     console.log(player);
   };
 
