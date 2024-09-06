@@ -22,28 +22,32 @@ var gameBoard = (function () {
 
   function renderGameBoard() {
     const cells = document.querySelectorAll(".cell");
+
     cells.forEach((cell) => {
       cell.addEventListener("click", () => {
         if (!cell.classList.contains("active")) {
           cell.classList.add("active");
-          displaySymbol();
-          changeDisplayPlayerTurn();
+          displaySymbol(cell);
+          changePlayerTurn();
           //checkWin();
         }
       });
     });
   }
 
-  const displaySymbol = () => {
-    const activeCell = document.querySelector(".active");
-    activeCell.querySelector("button").innerText = player.one.symbol;
+  const displaySymbol = (cell) => {
+    if (turnDisplay.innerText === `${player.one.name}'s turn`) {
+      cell.querySelector("button").innerText = player.one.symbol;
+    } else {
+      cell.querySelector("button").innerText = player.two.symbol;
+    }
   };
 
   const displayPlayerTurn = () => {
     turnDisplay.innerText = `${player.one.name}'s turn`;
   };
 
-  const changeDisplayPlayerTurn = () => {
+  const changePlayerTurn = () => {
     if (turnDisplay.innerText === `${player.one.name}'s turn`) {
       turnDisplay.innerText = `${player.two.name}'s turn`;
     } else {
@@ -57,7 +61,7 @@ var gameBoard = (function () {
     player.one.name = playerOne.value;
     player.one.symbol = "X";
     player.two.name = playerTwo.value;
-    player.two.symbol = "Y";
+    player.two.symbol = "O";
     console.log(playerOne.value);
     console.log(playerTwo.value);
     console.log(player.one);
