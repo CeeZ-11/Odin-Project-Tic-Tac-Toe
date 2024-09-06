@@ -3,7 +3,7 @@ var gameBoard = (function () {
     one: {},
     two: {},
   };
-
+  const turnDisplay = document.getElementById("turn");
   const dialog = document.querySelector("dialog");
   const gameInitiate = document.getElementById("startGame");
 
@@ -16,7 +16,40 @@ var gameBoard = (function () {
     closeModal();
     addPlayer();
     createGameBoard();
+    renderGameBoard();
+    displayPlayerTurn();
   });
+
+  function renderGameBoard() {
+    const cells = document.querySelectorAll(".cell");
+    cells.forEach((cell) => {
+      cell.addEventListener("click", () => {
+        if (!cell.classList.contains("active")) {
+          cell.classList.add("active");
+          displaySymbol();
+          changeDisplayPlayerTurn();
+          //checkWin();
+        }
+      });
+    });
+  }
+
+  const displaySymbol = () => {
+    const activeCell = document.querySelector(".active");
+    activeCell.querySelector("button").innerText = player.one.symbol;
+  };
+
+  const displayPlayerTurn = () => {
+    turnDisplay.innerText = `${player.one.name}'s turn`;
+  };
+
+  const changeDisplayPlayerTurn = () => {
+    if (turnDisplay.innerText === `${player.one.name}'s turn`) {
+      turnDisplay.innerText = `${player.two.name}'s turn`;
+    } else {
+      turnDisplay.innerText = `${player.one.name}'s turn`;
+    }
+  };
 
   const addPlayer = () => {
     const playerOne = document.getElementById("player-one");
