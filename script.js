@@ -20,6 +20,7 @@ var gameBoard = (function () {
     renderGameBoard();
     displayPlayerTurn();
     displayRound();
+    displayPlayerScore();
   });
 
   function renderGameBoard() {
@@ -103,6 +104,13 @@ var gameBoard = (function () {
     turnDisplay.innerText = `${player.one.name}'s turn`;
   };
 
+  const displayPlayerScore = () => {
+    const playerOneScore = document.getElementById("player1-score");
+    const playerTwoScore = document.getElementById("player2-score");
+    playerOneScore.innerText = `${player.one.score}`;
+    playerTwoScore.innerText = `${player.two.score}`;
+  };
+
   const changePlayerTurn = () => {
     if (turnDisplay.innerText === `${player.one.name}'s turn`) {
       turnDisplay.innerText = `${player.two.name}'s turn`;
@@ -116,8 +124,10 @@ var gameBoard = (function () {
     const playerTwo = document.getElementById("player-two");
     player.one.name = playerOne.value;
     player.one.symbol = "X";
+    player.one.score = 0;
     player.two.name = playerTwo.value;
     player.two.symbol = "O";
+    player.two.score = 0;
     console.log(playerOne.value);
     console.log(playerTwo.value);
     console.log(player.one);
