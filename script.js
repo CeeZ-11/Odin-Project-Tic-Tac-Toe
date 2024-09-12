@@ -58,6 +58,7 @@ var gameBoard = (function () {
         cells[c].querySelector("button").innerText === player.one.symbol
       ) {
         alert(`${player.one.name} wins!`); // change to dialog box
+        resetGameboard();
         player.one.score++;
       } else if (
         cells[a].querySelector("button").innerText === player.two.symbol &&
@@ -65,6 +66,7 @@ var gameBoard = (function () {
         cells[c].querySelector("button").innerText === player.two.symbol
       ) {
         alert(`${player.two.name} wins!`); // change to dialog box
+        resetGameboard();
         player.two.score++;
       }
     });
@@ -73,8 +75,8 @@ var gameBoard = (function () {
     );
     if (allCellsFilled) {
       alert("It's a draw!"); // change to dialog box
+      resetGameboard();
     }
-    resetGameboard();
     displayPlayerScore();
   };
 
