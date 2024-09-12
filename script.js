@@ -74,6 +74,14 @@ var gameBoard = (function () {
     }
   };
 
+  const resetGameboard = () => {
+    const cells = document.querySelectorAll(".cell");
+    cells.forEach((cell) => {
+      cell.querySelector("button").innerText = "";
+      cell.classList.remove("active");
+    });
+  };
+
   const displaySymbol = (cell) => {
     if (turnDisplay.innerText === `${player.one.name}'s turn`) {
       cell.querySelector("button").innerText = player.one.symbol;
