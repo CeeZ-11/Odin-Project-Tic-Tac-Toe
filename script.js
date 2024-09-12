@@ -29,11 +29,50 @@ var gameBoard = (function () {
           cell.classList.add("active");
           displaySymbol(cell);
           changePlayerTurn();
-          //checkWin();
+          checkWin();
         }
       });
     });
   }
+
+  const checkWin = () => {
+    const cells = document.querySelectorAll(".cell");
+    const winningCombinations = [
+      [0, 1, 2],
+      [3, 4, 5],
+      [6, 7, 8],
+      [0, 3, 6],
+      [1, 4, 7],
+      [2, 5, 8],
+      [0, 4, 8],
+      [2, 4, 6],
+    ];
+    winningCombinations.forEach((combination) => {
+      const [a, b, c] = combination;
+      if (
+        cells[a].querySelector("button").innerText === player.one.symbol &&
+        cells[b].querySelector("button").innerText === player.one.symbol &&
+        cells[c].querySelector("button").innerText === player.one.symbol
+      ) {
+        alert(`${player.one.name} wins!`); // change to dialog box
+        resetGameboard();
+      } else if (
+        cells[a].querySelector("button").innerText === player.two.symbol &&
+        cells[b].querySelector("button").innerText === player.two.symbol &&
+        cells[c].querySelector("button").innerText === player.two.symbol
+      ) {
+        alert(`${player.two.name} wins!`); // change to dialog box
+        resetGameboard();
+      }
+    });
+    const allCellsFilled = Array.from(cells).every(
+      (cell) => cell.querySelector("button").innerText !== ""
+    );
+    if (allCellsFilled) {
+      alert("It's a draw!"); // change to dialog box
+      resetGameboard();
+    }
+  };
 
   const displaySymbol = (cell) => {
     if (turnDisplay.innerText === `${player.one.name}'s turn`) {
