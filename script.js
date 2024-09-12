@@ -3,6 +3,7 @@ var gameBoard = (function () {
     one: {},
     two: {},
   };
+  var round = 1;
   const turnDisplay = document.getElementById("turn");
   const dialog = document.querySelector("dialog");
   const gameInitiate = document.getElementById("startGame");
@@ -18,6 +19,7 @@ var gameBoard = (function () {
     createGameBoard();
     renderGameBoard();
     displayPlayerTurn();
+    displayRound();
   });
 
   function renderGameBoard() {
@@ -75,11 +77,18 @@ var gameBoard = (function () {
   };
 
   const resetGameboard = () => {
+    displayRound();
     const cells = document.querySelectorAll(".cell");
     cells.forEach((cell) => {
       cell.querySelector("button").innerText = "";
       cell.classList.remove("active");
     });
+  };
+
+  const displayRound = () => {
+    const roundDisplay = document.getElementById("round");
+    roundDisplay.innerText = `Round ${round}`;
+    round++;
   };
 
   const displaySymbol = (cell) => {
