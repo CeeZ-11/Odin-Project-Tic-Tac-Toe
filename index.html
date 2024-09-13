@@ -8,9 +8,9 @@
     <script src="script.js" defer></script>
   </head>
   <body>
-    <dialog>
+    <dialog id="createPlayer">
       <form action id="add-players">
-        <h3>Create Player Names</h3>
+        <h3>Create Player Name</h3>
         <div class="form-control">
           <label for="player-one">Player One Name</label>
           <input type="text" id="player-one" name="player-one" required />
@@ -21,6 +21,11 @@
         </div>
       </form>
       <button type="submit" id="startGame">Start Game</button>
+    </dialog>
+
+    <dialog id="displayRoundWinner" class="inactive">
+      <p id="roundWinner"></p>
+      <button type="button" id="nextRound">Next Round</button>
     </dialog>
 
     <div id="container">

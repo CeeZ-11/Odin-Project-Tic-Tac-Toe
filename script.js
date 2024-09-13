@@ -3,18 +3,49 @@ var gameBoard = (function () {
     one: {},
     two: {},
   };
-  var round = 1;
+  var round = 0;
   const turnDisplay = document.getElementById("turn");
-  const dialog = document.querySelector("dialog");
   const gameInitiate = document.getElementById("startGame");
+  const nextRound = document.getElementById("nextRound");
 
-  const closeModal = () => {
-    dialog.close();
+  const createPlayerModalToggle = () => {
+    const createPlayerModal = document.getElementById("createPlayer");
+    createPlayerModal.classList.toggle("inactive");
+  };
+
+  const displayModalRoundWinnerToggle = (rWinner) => {
+    const roundWinner = document.getElementById("roundWinner");
+    const displayRoundWinner = document.getElementById("displayRoundWinner");
+
+    if (rWinner === player.one.name || rWinner === player.two.name) {
+      roundWinner.innerText = `${rWinner} wins!`;
+    } else {
+      roundWinner.innerText = "It's a tie!";
+    }
+    displayRoundWinner.classList.remove("inactive");
+    toggleGameboard();
+    displayRound();
+  };
+
+  nextRound.addEventListener("click", () => {
+    resetGameboard();
+    displayPlayerTurn();
+    displayPlayerScore();
+    toggleGameboard();
+    displayRoundWinner.classList.add("inactive");
+  });
+
+  const toggleGameboard = () => {
+    const board = document.getElementById("game-board");
+    if (board.style.pointerEvents === "none") {
+      board.style.pointerEvents = "auto"; // Enable clicks
+    } else {
+      board.style.pointerEvents = "none"; // Disable clicks
+    }
   };
 
   gameInitiate.addEventListener("click", () => {
-    dialog.classList.add("inactive");
-    closeModal();
+    createPlayerModalToggle();
     addPlayer();
     createGameBoard();
     renderGameBoard();
@@ -57,16 +88,14 @@ var gameBoard = (function () {
         cells[b].querySelector("button").innerText === player.one.symbol &&
         cells[c].querySelector("button").innerText === player.one.symbol
       ) {
-        alert(`${player.one.name} wins!`); // change to dialog box
-        resetGameboard();
+        displayModalRoundWinnerToggle(player.one.name);
         player.one.score++;
       } else if (
         cells[a].querySelector("button").innerText === player.two.symbol &&
         cells[b].querySelector("button").innerText === player.two.symbol &&
         cells[c].querySelector("button").innerText === player.two.symbol
       ) {
-        alert(`${player.two.name} wins!`); // change to dialog box
-        resetGameboard();
+        displayModalRoundWinnerToggle(player.two.name);
         player.two.score++;
       }
     });
@@ -74,14 +103,11 @@ var gameBoard = (function () {
       (cell) => cell.querySelector("button").innerText !== ""
     );
     if (allCellsFilled) {
-      alert("It's a draw!"); // change to dialog box
-      resetGameboard();
+      displayModalRoundWinnerToggle();
     }
-    displayPlayerScore();
   };
 
   const resetGameboard = () => {
-    displayRound();
     const cells = document.querySelectorAll(".cell");
     cells.forEach((cell) => {
       cell.querySelector("button").innerText = "";
@@ -90,9 +116,9 @@ var gameBoard = (function () {
   };
 
   const displayRound = () => {
+    round++;
     const roundDisplay = document.getElementById("round");
     roundDisplay.innerText = `Round ${round}`;
-    round++;
   };
 
   const displaySymbol = (cell) => {

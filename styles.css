@@ -57,21 +57,26 @@ h6 {
 dialog {
   display: flex;
   position: absolute;
+  flex-direction: column;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 20%;
   height: 20lvh;
   z-index: 10;
+  line-height: 1.6;
   background-color: gray;
   justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 15px;
   opacity: 1;
 }
 
-dialog.inactive {
+.inactive {
   opacity: 0;
   transition: opacity 0.5s ease;
-  z-index: -10;
+  z-index: -20;
 }
 
 #container {
