@@ -1,5 +1,5 @@
 var gameBoard = (function () {
-  const player = {
+  var player = {
     one: {},
     two: {},
   };
@@ -28,6 +28,16 @@ var gameBoard = (function () {
     toggleGameboard();
     displayRound();
   };
+
+  resetGame.addEventListener("click", () => {
+    player.one.score = 0;
+    player.two.score = 0;
+    round = 0;
+    resetGameboard();
+    displayPlayerTurn();
+    displayPlayerScore();
+    displayRound();
+  });
 
   resetRound.addEventListener("click", () => {
     resetGameboard();
