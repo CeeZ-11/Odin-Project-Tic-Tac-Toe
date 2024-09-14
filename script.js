@@ -7,6 +7,8 @@ var gameBoard = (function () {
   const turnDisplay = document.getElementById("turn");
   const gameInitiate = document.getElementById("startGame");
   const nextRound = document.getElementById("nextRound");
+  const resetRound = document.getElementById("resetRound");
+  const resetGame = document.getElementById("resetGame");
 
   const createPlayerModalToggle = () => {
     const createPlayerModal = document.getElementById("createPlayer");
@@ -26,6 +28,10 @@ var gameBoard = (function () {
     toggleGameboard();
     displayRound();
   };
+
+  resetRound.addEventListener("click", () => {
+    resetGameboard();
+  });
 
   nextRound.addEventListener("click", () => {
     resetGameboard();
