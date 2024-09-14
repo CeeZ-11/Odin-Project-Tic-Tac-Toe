@@ -3,12 +3,18 @@ var gameBoard = (function () {
     one: {},
     two: {},
   };
-  var round = 0;
+  var round = 1;
   const turnDisplay = document.getElementById("turn");
   const gameInitiate = document.getElementById("startGame");
   const nextRound = document.getElementById("nextRound");
   const resetRound = document.getElementById("resetRound");
   const resetGame = document.getElementById("resetGame");
+  const playAgain = document.getElementById("playAgain");
+  const newGameButton = document.getElementById("newGame");
+  const gameWinnerDialog = document.getElementById("displayGameWinner");
+  const board = document.getElementById("game-board");
+  const pOneInput = document.getElementById("player-one");
+  const pTwoInput = document.getElementById("player-two");
 
   const createPlayerModalToggle = () => {
     const createPlayerModal = document.getElementById("createPlayer");
@@ -26,13 +32,38 @@ var gameBoard = (function () {
     }
     displayRoundWinner.classList.remove("inactive");
     toggleGameboard();
+    roundIncrease();
     displayRound();
   };
 
+  newGameButton.addEventListener("click", () => {
+    gameWinnerDialog.classList.add("inactive");
+    toggleGameboard();
+    board.innerHTML = "";
+    turnDisplay.innerHTML = "";
+    pOneInput.value = "";
+    pTwoInput.value = "";
+    resetRoundScore();
+    resetPlayersScore();
+    displayRound();
+    displayPlayerScore();
+    createPlayerModalToggle();
+  });
+
+  playAgain.addEventListener("click", () => {
+    resetPlayersScore();
+    resetRoundScore();
+    resetGameboard();
+    displayPlayerTurn();
+    displayPlayerScore();
+    displayRound();
+    toggleGameboard();
+    gameWinnerDialog.classList.add("inactive");
+  });
+
   resetGame.addEventListener("click", () => {
-    player.one.score = 0;
-    player.two.score = 0;
-    round = 0;
+    resetPlayersScore();
+    resetRoundScore();
     resetGameboard();
     displayPlayerTurn();
     displayPlayerScore();
@@ -53,11 +84,10 @@ var gameBoard = (function () {
 
   const displayGameWinner = (gameWinner) => {
     const gWinner = document.getElementById("gameWinner");
-    const displayGameWinner = document.getElementById("displayGameWinner");
-
+    toggleGameboard();
     gWinner.innerText = `${gameWinner} wins the Game!`;
 
-    displayGameWinner.classList.remove("inactive");
+    gameWinnerDialog.classList.remove("inactive");
   };
 
   const toggleGameboard = () => {
@@ -114,6 +144,7 @@ var gameBoard = (function () {
         cells[c].querySelector("button").innerText === player.one.symbol
       ) {
         player.one.score++;
+        displayPlayerScore();
         if (player.one.score === 3) {
           displayGameWinner(player.one.name);
         } else if (player.one.score < 3) {
@@ -125,6 +156,7 @@ var gameBoard = (function () {
         cells[c].querySelector("button").innerText === player.two.symbol
       ) {
         player.two.score++;
+        displayPlayerScore();
         if (player.two.score === 3) {
           displayGameWinner(player.two.name);
         } else if (player.two.score < 3) {
@@ -149,9 +181,12 @@ var gameBoard = (function () {
   };
 
   const displayRound = () => {
-    round++;
     const roundDisplay = document.getElementById("round");
     roundDisplay.innerText = `Round ${round}`;
+  };
+
+  const roundIncrease = () => {
+    round++;
   };
 
   const displaySymbol = (cell) => {
@@ -181,6 +216,15 @@ var gameBoard = (function () {
     }
   };
 
+  const resetRoundScore = () => {
+    round = 1;
+  };
+
+  const resetPlayersScore = () => {
+    player.one.score = 0;
+    player.two.score = 0;
+  };
+
   const addPlayer = () => {
     const playerOne = document.getElementById("player-one");
     const playerTwo = document.getElementById("player-two");
@@ -198,8 +242,6 @@ var gameBoard = (function () {
   };
 
   const createGameBoard = () => {
-    const board = document.getElementById("game-board");
-
     for (let i = 0; i < 9; i++) {
       const cell = document.createElement("div");
       const cellButton = document.createElement("button");
