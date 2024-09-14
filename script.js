@@ -18,7 +18,7 @@ var gameBoard = (function () {
     const displayRoundWinner = document.getElementById("displayRoundWinner");
 
     if (rWinner === player.one.name || rWinner === player.two.name) {
-      roundWinner.innerText = `${rWinner} wins!`;
+      roundWinner.innerText = `${rWinner} wins the Round!`;
     } else {
       roundWinner.innerText = "It's a tie!";
     }
@@ -34,6 +34,15 @@ var gameBoard = (function () {
     toggleGameboard();
     displayRoundWinner.classList.add("inactive");
   });
+
+  const displayGameWinner = (gameWinner) => {
+    const gWinner = document.getElementById("gameWinner");
+    const displayGameWinner = document.getElementById("displayGameWinner");
+
+    gWinner.innerText = `${gameWinner} wins the Game!`;
+
+    displayGameWinner.classList.remove("inactive");
+  };
 
   const toggleGameboard = () => {
     const board = document.getElementById("game-board");
@@ -88,15 +97,23 @@ var gameBoard = (function () {
         cells[b].querySelector("button").innerText === player.one.symbol &&
         cells[c].querySelector("button").innerText === player.one.symbol
       ) {
-        displayModalRoundWinnerToggle(player.one.name);
         player.one.score++;
+        if (player.one.score === 3) {
+          displayGameWinner(player.one.name);
+        } else if (player.one.score < 3) {
+          displayModalRoundWinnerToggle(player.one.name);
+        }
       } else if (
         cells[a].querySelector("button").innerText === player.two.symbol &&
         cells[b].querySelector("button").innerText === player.two.symbol &&
         cells[c].querySelector("button").innerText === player.two.symbol
       ) {
-        displayModalRoundWinnerToggle(player.two.name);
         player.two.score++;
+        if (player.two.score === 3) {
+          displayGameWinner(player.two.name);
+        } else if (player.two.score < 3) {
+          displayModalRoundWinnerToggle(player.two.name);
+        }
       }
     });
     const allCellsFilled = Array.from(cells).every(
